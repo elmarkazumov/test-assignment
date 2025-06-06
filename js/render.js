@@ -9,6 +9,10 @@ class Render {
         this.context.fillStyle = color;
         this.context.fillRect(x, y, w, h);
     }
+
+    clearCanvas(width, height) {
+        this.context.clearRect(0, 0, width, height);
+    }
 }
 
 export {Render}
