@@ -23,8 +23,9 @@ function checkRects(event) {
         && mousePos.y >= rect.posY && mousePos.y <= rect.posY + rect.height;
 
         if(checkPos) {
-            rect.isSelected = true;
             mouseMoveSettings.draggedElement = rect;
+            mouseMoveSettings.draggedElement.isSelected = true;
+            mouseMoveSettings.draggedElement.clicked = true;
             mouseMoveSettings.offsetX = mousePos.x - rect.posX;
             mouseMoveSettings.offsetY = mousePos.y - rect.posY;
         }
@@ -36,7 +37,7 @@ export function mouseEvents() {
 
     canvas.addEventListener('mousemove', (event) => {
         const mousePos = getMousePos(event, canvas);
-        if (mouseMoveSettings.isMouseDown && mouseMoveSettings.draggedElement.isSelected) {
+        if (mouseMoveSettings.isMouseDown === true && mouseMoveSettings.draggedElement.isSelected === true) {
             mouseMoveSettings.draggedElement.posX = mousePos.x - mouseMoveSettings.offsetX;
             mouseMoveSettings.draggedElement.posY = mousePos.y - mouseMoveSettings.offsetY;
             renderScreen();

@@ -1,6 +1,7 @@
 import { Render } from "./render.js";
 import { rects } from "./figures.js";
 import { mouseEvents } from "./moveRect.js";
+import { getSelectedColor } from "./changeColor.js";
 
 export const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
@@ -23,3 +24,5 @@ export function renderScreen() {
 }
 
 mouseEvents();
+
+getSelectedColor();

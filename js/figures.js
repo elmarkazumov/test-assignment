@@ -5,7 +5,7 @@ const rects = [
         posX: 50,
         posY: 50,
         color: '#e1cdf0',
-        drag: false,
+        clicked: false,
         isSelected: false,
         stickingStatus: false,
     }, 
@@ -15,7 +15,7 @@ const rects = [
         posX: 650,
         posY: 650,
         color: '#2eb1a4',
-        drag: false,
+        clicked: false,
         isSelected: false,
         stickingStatus: false,
     }
