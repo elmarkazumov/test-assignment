@@ -12,8 +12,6 @@ const render = new Render(context);
 const playground = document.querySelector('.playground');
 playground.appendChild(canvas);
 
-const divisionButton = document.querySelector('.rects-disconnect');
-
 canvas.width = 800;
 canvas.height = 800;
 
@@ -27,4 +25,5 @@ export function renderScreen() {
 }
 
 mouseEvents();
+
 getSelectedColor();

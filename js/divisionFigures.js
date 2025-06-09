@@ -1,4 +1,7 @@
 import { rects } from "./figures.js";
+import { renderScreen } from "./screen.js";
+
+const divisionButton = document.querySelector('.rects-disconnect');
 
 function generateRandomPos() {
     for (const rect of rects) {
@@ -12,4 +15,7 @@ function generateRandomPos() {
 
 export function divisionFigures() {
     generateRandomPos();
+    renderScreen();
 }
+
+divisionButton.addEventListener('click', divisionFigures);
