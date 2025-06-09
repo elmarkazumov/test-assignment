@@ -1,5 +1,6 @@
 const rects = [
     {
+        id: 0,
         width: 100,
         height: 100,
         posX: 50,
@@ -10,6 +11,7 @@ const rects = [
         stickingStatus: false,
     }, 
     {
+        id: 1,
         width: 100,
         height: 100,
         posX: 650,

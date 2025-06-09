@@ -1,8 +1,12 @@
 import { rects } from "./figures.js";
 import { canvas, renderScreen } from './screen.js';
+import { checkDistance } from "./stickingFigures.js";
+
 
 const mouseMoveSettings = {
     isMouseDown: false,
+    lastMouseX: 0,
+    lastMouseY: 0,
 }
 
 function getMousePos(event) {
@@ -17,6 +21,8 @@ function getMousePos(event) {
 function checkRects(event) {
     const mousePos = getMousePos(event, canvas);
     mouseMoveSettings.isMouseDown = true;
+    mouseMoveSettings.lastMouseX = mousePos.x;
+    mouseMoveSettings.lastMouseY = mousePos.y;
 
     for(let rect of rects) {
         const checkPos = mousePos.x >= rect.posX && mousePos.x <= rect.posX + rect.width
@@ -37,10 +43,27 @@ export function mouseEvents() {
 
     canvas.addEventListener('mousemove', (event) => {
         const mousePos = getMousePos(event, canvas);
-        if (mouseMoveSettings.isMouseDown === true && mouseMoveSettings.draggedElement.isSelected === true) {
-            mouseMoveSettings.draggedElement.posX = mousePos.x - mouseMoveSettings.offsetX;
-            mouseMoveSettings.draggedElement.posY = mousePos.y - mouseMoveSettings.offsetY;
+        const deltaX = mousePos.x - mouseMoveSettings.lastMouseX;
+        const deltaY = mousePos.y - mouseMoveSettings.lastMouseY;
+
+        if(mouseMoveSettings.isMouseDown === true) {
+            if (mouseMoveSettings.draggedElement.isSelected === true) {
+                mouseMoveSettings.draggedElement.posX = mousePos.x - mouseMoveSettings.offsetX;
+                mouseMoveSettings.draggedElement.posY = mousePos.y - mouseMoveSettings.offsetY;
+            }
+
+            if(rects[0].stickingStatus === true && rects[1].stickingStatus === true) {
+                rects[0].posX += deltaX;
+                rects[0].posY += deltaY;
+
+                rects[1].posX += deltaX;
+                rects[1].posY += deltaY;
+            }
+            checkDistance();
             renderScreen();
+
+            mouseMoveSettings.lastMouseX = mousePos.x;
+            mouseMoveSettings.lastMouseY = mousePos.y;
         }
     });
 
