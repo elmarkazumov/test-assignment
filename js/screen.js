@@ -2,6 +2,7 @@ import { Render } from "./render.js";
 import { rects } from "./figures.js";
 import { mouseEvents } from "./moveRect.js";
 import { getSelectedColor } from "./changeColor.js";
+import { divisionFigures } from "./divisionFigures.js";
 
 export const canvas = document.createElement('canvas');
 const context = canvas.getContext('2d');
@@ -10,6 +11,8 @@ const render = new Render(context);
 
 const playground = document.querySelector('.playground');
 playground.appendChild(canvas);
+
+const divisionButton = document.querySelector('.rects-disconnect');
 
 canvas.width = 800;
 canvas.height = 800;
