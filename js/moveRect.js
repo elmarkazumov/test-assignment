@@ -20,6 +20,23 @@ function getMousePos(event) {
     };
 }
 
+function bordersField() {
+    if(activeRect) {
+        if(activeRect.posX < 0) {
+            activeRect.posX = 0;
+        }
+        if(activeRect.posY < 0) {
+            activeRect.posY = 0;
+        }
+        if(activeRect.posX + activeRect.width >= canvas.width) {
+            activeRect.posX = canvas.width - activeRect.width;
+        }
+        if(activeRect.posY + activeRect.height >= canvas.height) {
+            activeRect.posY = canvas.height - activeRect.height;
+        }
+    }
+}
+
 function checkRects(event) {
     const mousePos = getMousePos(event, canvas);
     mouseMoveSettings.isMouseDown = true;
@@ -58,12 +75,31 @@ function moveRects(event) {
             }
 
             if(rects[0].stickingStatus === true && rects[1].stickingStatus === true) {
-                rects[0].posX += deltaX;
-                rects[0].posY += deltaY;
+                
+                let minX = Math.min(...rects.map(rect => rect.posX));
+                let minY = Math.min(...rects.map(rect => rect.posY));
+                let maxX = Math.max(...rects.map(rect => rect.posX + rect.width));
+                let maxY = Math.max(...rects.map(rect => rect.posY + rect.height));
 
-                rects[1].posX += deltaX;
-                rects[1].posY += deltaY;
+                if(minX + deltaX < 0) {
+                    deltaX = -minX;
+                }
+                if (minY + deltaY < 0){
+                    deltaY = -minY;
+                }
+                if (maxX + deltaX > canvas.width) {
+                    deltaX = canvas.width - maxX;
+                }
+                if (maxY + deltaY > canvas.height) {
+                    deltaY = canvas.height - maxY;
+                }
+
+                for (const rect of rects) {
+                    rect.posX += deltaX; 
+                    rect.posY += deltaY;
+                }
             }
+            bordersField();
             checkDistance();
             renderScreen();
 
